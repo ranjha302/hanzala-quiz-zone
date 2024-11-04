@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login & Registration Form</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Toast Notification Styles */
+    .toast {
+      visibility: hidden; /* Hidden by default */
+      min-width: 250px; /* Minimum width of the toast */
+      margin-left: -125px; /* Center the toast */
+      background-color: #4caf50; /* Green background */
+      color: #fff; /* White text */
+      text-align: center;
+      border-radius: 8px; /* Rounded corners */
+      padding: 16px; /* Padding around the text */
+      position: fixed; /* Sit on top of the screen */
+      z-index: 1; /* Bring the toast on top */
+      left: 50%; /* Center horizontally */
+      top: 30px; /* Position from the top */
+      font-size: 17px; /* Font size */
+      transition: visibility 0s, opacity 0.5s linear, transform 0.5s ease; /* Transition for fade in/out */
+      opacity: 0; /* Invisible by default */
+      transform: translateY(-20px); /* Initial position off-screen */
+    }
+
+    .toast.show {
+      visibility: visible; /* Show the toast */
+      opacity: 1; /* Fade in the toast */
+      transform: translateY(0); /* Move to original position */
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Left Side Image Panel -->
+    <div class="image-panel">
+      <img src="image/my profile.jpg" alt="Profile Image">
+    </div>
+
+    <!-- Login Form -->
+    <div class="form-container" id="login-form">
+      <h2>Login</h2>
+      <form onsubmit="handleLogin(event)">
+        <label for="login-email">Email</label>
+        <input type="email" id="login-email" name="login-email" required>
+        
+        <label for="login-password">Password</label>
+        <input type="password" id="login-password" name="login-password" required>
+        
+        <button type="button" onclick="window.location.href='dashboard.html'">Login</button>
+        <p class="toggle">Don't have an account? <span onclick="showRegister()">Register</span></p>
+      </form>
+    </div>
+
+    <!-- Registration Form -->
+    <div class="form-container hidden" id="register-form">
+      <h2>Register</h2>
+      <form onsubmit="handleRegister(event)">
+        <label for="register-username">Username</label>
+        <input type="text" id="register-username" name="register-username" required>
+        
+        <label for="register-email">Email</label>
+        <input type="email" id="register-email" name="register-email" required>
+        
+        <label for="register-password">Password</label>
+        <input type="password" id="register-password" name="register-password" required>
+        
+        <button type="submit">Register</button>
+        <p class="toggle">Already have an account? <span onclick="showLogin()">Login</span></p>
+      </form>
+    </div>
+
+    <!-- Welcome Message -->
+    <div class="hidden" id="welcome-message">
+      <h2 id="welcome-text">Welcome, User!</h2>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="toast">Notification message will appear here</div>
+
+  <script>
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.add('show');
+
+      // Hide the toast after 3 seconds
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3000);
+    }
+
+    function handleLogin(event) {
+      event.preventDefault(); // Prevent form submission
+      // Assuming successful login, show toast
+      showToast('Login successful! Redirecting to dashboard...');
+      // Redirect to dashboard after a brief delay
+      setTimeout(() => {
+        window.location.href = 'dashboard.html';
+      }, 2000);
+    }
+
+    function handleRegister(event) {
+      event.preventDefault(); // Prevent form submission
+      // Assuming successful registration, show toast
+      showToast('Registration successful! You can now log in.');
+      // Optional: Show login form after a brief delay
+      setTimeout(() => {
+        showLogin(); // Show login form after registration
+      }, 2000);
+    }
+
+    function showRegister() {
+      document.getElementById('login-form').classList.add('hidden');
+      document.getElementById('register-form').classList.remove('hidden');
+    }
+
+    function showLogin() {
+      document.getElementById('register-form').classList.add('hidden');
+      document.getElementById('login-form').classList.remove('hidden');
+    }
+  </script>
+</body>
+</html>

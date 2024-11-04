@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('https://img.freepik.com/free-vector/yellow-diagonal-geometric-striped-background-with-halftone-detailed_1409-1451.jpg');
+            background-size: cover;
+            background-position: center;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            display: flex; /* Use flexbox to align the image and form */
+            align-items: center; /* Center items vertically */
+            max-width: 900px; /* Maximum width for the container */
+            margin: 0 auto; /* Center the container horizontally */
+        }
+
+        h1 {
+            text-align: center;
+            color:black;
+            margin-top: 20px; /* Adjusted for better alignment */
+            width: 100%; /* Make it full width */
+        }
+
+        .form-container {
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            padding: 30px;
+            max-width: 400px;
+            margin: 20px; /* Add margin for spacing */
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        select {
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        input[type="text"]:focus,
+        select:focus {
+            border-color: #007BFF;
+            outline: none;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .toast {
+            visibility: hidden;
+            min-width: 250px;
+            margin-left: -125px;
+            background: linear-gradient(45deg, #ff8a00, #e52e71);
+            color: #fff;
+            text-align: center;
+            border-radius: 8px;
+            padding: 16px;
+            position: fixed;
+            z-index: 1;
+            left: 50%;
+            bottom: 30px;
+            font-size: 17px;
+            transition: visibility 0s, opacity 0.5s linear, transform 0.5s ease;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        
+        .toast.show {
+            visibility: visible;
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .toast::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: 100%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: transparent transparent #ff8a00 transparent;
+        }
+
+        img {
+            max-width: 300px; /* Set a maximum width for the image */
+            margin-right: 20px; /* Space between image and form */
+            border-radius: 10px; /* Rounded corners for the image */
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="container">
+        <img src="https://wallpapers.com/images/hd/cartoon-pictures-3dte0pf467umwgmc.jpg" alt="Your Image Description"> <!-- Replace with your image URL -->
+        
+        <div class="form-container">
+            <h1>Welcome to the Dashboard</h1>
+            <form id="selectionForm">
+                <label for="year">Degree Year:</label>
+                <select id="year" required>
+                    <option value="">Select Degree Year</option>
+                    <option value="1">1st Year</option>
+                    <option value="2">2nd Year</option>
+                    <option value="3">3rd Year</option>
+                    <option value="4">4th Year</option>
+                </select>
+                
+                <label for="field">Field:</label>
+                <select id="field" required>
+                    <option value="">Select Field</option>
+                    <option value="computer_science">Computer Science</option>
+                    <option value="BS-ir">BS-International Relations</option>    
+                    <option value="bsc_engineering">B.Sc Engineering</option>
+                    <option value="bba_business">BBA Business Administration</option>
+                    <option value="ma_international_relations">M.A International Relations</option>
+                    <option value="bsc_data_science">B.Sc Data Science</option>
+                    <option value="bsc_information_technology">B.Sc Information Technology</option>
+                    <option value="bsc_mathematics">B.Sc Mathematics</option>
+                    <option value="bsc_physics">B.Sc Physics</option>
+                </select>
+                
+                <label for="rollNumber">Roll Number:</label>
+                <input type="text" id="rollNumber" name="rollNumber" required>
+                
+                <label for="admissionYear">Select Admission Year:</label>
+                <select id="admissionYear" name="admissionYear" required>
+                    <option value="">Select Admission Year</option>
+                    <option value="fall_2016">Fall 2016 (Fa16)</option>
+                    <option value="spring_2017">Spring 2017 (Sp17)</option>
+                    <option value="fall_2017">Fall 2017 (Fa17)</option>
+                    <option value="spring_2018">Spring 2018 (Sp18)</option>
+                    <option value="fall_2018">Fall 2018 (Fa18)</option>
+                    <option value="spring_2019">Spring 2019 (Sp19)</option>
+                    <option value="fall_2019">Fall 2019 (Fa19)</option>
+                    <option value="spring_2020">Spring 2020 (Sp20)</option>
+                    <option value="fall_2020">Fall 2020 (Fa20)</option>
+                    <option value="spring_2021">Spring 2021 (Sp21)</option>
+                    <option value="fall_2021">Fall 2021 (Fa21)</option>
+                    <option value="spring_2022">Spring 2022 (Sp22)</option>
+                    <option value="fall_2022">Fall 2022 (Fa22)</option>
+                    <option value="spring_2023">Spring 2023 (Sp23)</option>
+                    <option value="fall_2023">Fall 2023 (Fa23)</option>
+                    <option value="spring_2024">Spring 2024 (Sp24)</option>
+                    <option value="fall_2024">Fall 2024 (Fa24)</option>
+                </select>
+
+                <label for="semester">Select Semester:</label>
+                <select id="semester" name="semester" required>
+                    <option value="">Select Semester</option>
+                    <option value="semester_1">Semester 1</option>
+                    <option value="semester_2">Semester 2</option>
+                    <option value="semester_3">Semester 3</option>
+                    <option value="semester_4">Semester 4</option>
+                    <option value="semester_5">Semester 5</option>
+                    <option value="semester_6">Semester 6</option>
+                    <option value="semester_7">Semester 7</option>
+                    <option value="semester_8">Semester 8</option>
+                    <option value="semester_9">Semester 9</option>
+                    <option value="semester_10">Semester 10</option>
+                    <option value="semester_11">Semester 11</option>
+                    <option value="semester_12">Semester 12</option>
+                </select>
+
+                <label for="subject">Subject:</label>
+                <select id="subject" required>
+                    <option value="">Select Subject</option>
+                    <option value="Fabels Wisdom and Epics">Fabels Wisdom and Epics</option>
+                    <option value="International Law">International Law</option>
+                    <option value="Foreign Policy Analysis">Foreign Policy Analysis</option>
+                    <option value="Science Of Society">Science Of Society</option>
+                    <option value="IR">International Relations(1648->1945)</option>
+                    <option value="Exploring Quantitative Skills">Exploring Quantitative Skills</option>
+                    <option value="subject_ir">Seerat Of Holy Prophet</option>
+                </select>
+
+                <button type="button" onclick="startQuiz()">Submit</button>
+            </form>
+
+            <div id="toast" class="toast">Please fill in all the required fields.</div>
+        </div>
+    </div>
+
+    <script>
+        function startQuiz() {
+            var year = document.getElementById("year").value;
+            var field = document.getElementById("field").value;
+            var rollNumber = document.getElementById("rollNumber").value;
+            var admissionYear = document.getElementById("admissionYear").value;
+            var semester = document.getElementById("semester").value;
+            var subject = document.getElementById("subject").value;
+
+            if (year && field && rollNumber && admissionYear && semester && subject) {
+                // Redirect to the quiz page with selected parameters
+                window.location.href = `quiz.html?year=${year}&field=${field}&rollNumber=${rollNumber}&admissionYear=${admissionYear}&semester=${semester}&subject=${subject}`;
+            } else {
+                // Show toast message if required fields are not filled
+                var toast = document.getElementById("toast");
+                toast.classList.add("show");
+                setTimeout(function () { toast.classList.remove("show"); }, 3000);
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('https://img.freepik.com/free-vector/yellow-diagonal-geometric-striped-background-with-halftone-detailed_1409-1451.jpg'); /* Replace with your image path */
+            background-size: cover; /* Cover the entire viewport */
+            background-repeat: no-repeat; /* Prevent image from repeating */
+            background-position: center; /* Center the image */
+            margin: 0;
+            padding: 20px;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #333;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Add a shadow for better readability */
+        }
+        
+        #quizContainer {
+            max-width: 600px;
+            margin: auto;
+            background: rgba(255, 255, 255, 0.9); /* Slightly transparent white background */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Softer shadow for depth */
+            backdrop-filter: blur(10px); /* Blurs the background behind the container */
+        }
+        
+        .question {
+            margin-bottom: 15px;
+        }
+        
+        .choices {
+            margin: 10px 0;
+        }
+        
+        .choices label {
+            display: block;
+            padding: 12px;
+            background: #e7e7e7;
+            border-radius: 4px;
+            margin-bottom: 5px;
+            cursor: pointer;
+            transition: background 0.3s; /* Smooth transition effect */
+        }
+        
+        .choices label:hover {
+            background: #d5d5d5; /* Darker shade on hover */
+        }
+        
+        .choices input[type="radio"] {
+            margin-right: 10px;
+        }
+        
+        #submitBtn {
+            display: block;
+            margin: 20px auto;
+            padding: 12px 24px; /* Larger padding for button */
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1em; /* Increase font size */
+            transition: background-color 0.3s; /* Smooth transition */
+        }
+        
+        #submitBtn:hover {
+            background-color: #218838; /* Darker green on hover */
+        }
+        
+        #result {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 1.2em;
+        }
+        
+        .incorrect {
+            color: red;
+        }
+        
+        .correct {
+            color: green;
+        }
+        
+    </style>
+</head>
+<body>
+    <h1>Quiz for <span id="subjectTitle"></span></h1>
+    <div id="quizContainer"></div>
+    <button id="submitBtn">Submit</button>
+    <div id="result"></div>
+
+    <script>
+        // Retrieve the user's selected subject
+        const subject = localStorage.getItem('subject');
+        document.getElementById('subjectTitle').innerText = subject;
+
+        const quizData = {
+
+            subject_ir: [
+            { question:"Q. Who was the first person to accept Islam after the Prophet Muhammad (PBUH)?", choices: ["Abu Bakr (RA)", "Ali (RA)", "Khadijah (RA)", "Umar (RA)"], answer: "Khadijah (RA)" },
+            { question: "Q. In which year was the Prophet Muhammad (PBUH) born?", choices:  ["570 AD", "610 AD", "622 AD", "632 AD"],answer: "570 AD" },
+{ question: "Q. Who was the first person to accept Islam after the Prophet Muhammad (PBUH)?", choices: ["Abu Bakr (RA)", "Ali (RA)", "Khadijah (RA)", "Umar (RA)"], answer: "Khadijah (RA)" },
+{ question: "Q. In which year was the Prophet Muhammad (PBUH) born?", choices: ["570 AD", "610 AD", "622 AD", "632 AD"], answer: "570 AD" },
+{ question: "Q. Which angel conveyed Allah's message to the Prophet Muhammad (PBUH)?", choices: ["Angel Michael", "Angel Gabriel", "Angel Israfil", "Angel Azrael"], answer: "Angel Gabriel" },
+{ question: "Q. The migration of the Prophet Muhammad (PBUH) from Makkah to Madinah is known as:", choices: ["Isra", "Hijra", "Miraj", "Fatah"], answer: "Hijra" },
+{ question: "Q. Who was the Prophet Muhammad's (PBUH) father?", choices: ["Abdullah", "Abdul Muttalib", "Abu Talib", "Hamza"], answer: "Abdullah" },
+{ question: "Q. Which of the following was the first mosque built by the Prophet Muhammad (PBUH)?", choices: ["Masjid al-Haram", "Masjid al-Nabawi", "Masjid Quba", "Masjid al-Aqsa"], answer: "Masjid Quba" },
+{ question: "Q. At what age did the Prophet Muhammad (PBUH) receive his first revelation?", choices: ["30 years", "35 years", "40 years", "45 years"], answer: "40 years" },
+{ question: "Q. What is the significance of the Battle of Badr in Islamic history?", choices: ["First revelation", "First major battle in Islam", "Prophet's migration to Madinah", "Treaty of Hudaybiyyah"], answer: "First major battle in Islam" },
+{ question: "Q. Who was the Prophet's (PBUH) uncle who raised him after the death of his grandfather?", choices: ["Hamza", "Abu Talib", "Abdullah", "Abdul Muttalib"], answer: "Abu Talib" },
+{ question: "Q. Which treaty marked a 10-year truce between the Muslims and the Quraysh?", choices: ["Treaty of Badr", "Treaty of Hudaybiyyah", "Treaty of Uhud", "Treaty of Khaybar"], answer: "Treaty of Hudaybiyyah" },
+{ question: "Q. What was the name of the Prophet Muhammad's (PBUH) mother?", choices: ["Amina", "Fatimah", "Zainab", "Khadijah"], answer: "Amina" },
+{ question: "Q. Which battle was fought in the month of Ramadan?", choices: ["Battle of Uhud", "Battle of Badr", "Battle of Khandaq", "Battle of Tabuk"], answer: "Battle of Badr" },
+{ question: "Q. Who was the Prophet Muhammad's (PBUH) first wife?", choices: ["Aisha", "Khadijah", "Fatimah", "Zainab"], answer: "Khadijah" },
+{ question: "Q. What title was given to the Prophet Muhammad (PBUH) by his people before his prophethood?", choices: ["Al-Amin", "Al-Rasul", "Al-Nabi", "Al-Masih"], answer: "Al-Amin" },
+{ question: "Q. Which event marks the beginning of the Islamic calendar?", choices: ["Battle of Badr", "Hijra", "Birth of the Prophet", "First Revelation"], answer: "Hijra" },
+{ question: "Q. What was the primary message of the Prophet Muhammad (PBUH)?", choices: ["Wealth and prosperity", "Worship of one God", "Community and teamwork", "Justice for all"], answer: "Worship of one God" }, 
+{ question: "Q. What was the primary reason for the Hijrat-e-Madina?", choices: ["Seeking trade opportunities", "Escape from persecution", "Expanding territory", "Learning new skills"], answer: "Escape from persecution" },
+{ question: "Q. Which tribe was responsible for the persecution of Muslims in Makkah?", choices: ["Aws", "Khazraj", "Quraysh", "Ansar"], answer: "Quraysh" },
+{ question: "Q. What did the people of Yathrib (Madinah) promise the Prophet Muhammad (PBUH)?", choices: ["Financial support", "Protection and loyalty", "Political power", "Military assistance"], answer: "Protection and loyalty" },
+{ question: "Q. What was the name of the treaty that established support for the Prophet in Madinah?", choices: ["Treaty of Hudaybiyyah", "Treaty of Aqabah", "Treaty of Khaybar", "Treaty of Badr"], answer: "Treaty of Aqabah" },
+{ question: "Q. How did the migration to Madinah impact the Muslim community?", choices: ["It led to their downfall", "It helped establish a cohesive community", "It created division", "It discouraged new converts"], answer: "It helped establish a cohesive community" },
+{ question: "Q. In which year did the Hijrat-e-Madina take place?", choices: ["610 AD", "622 AD", "630 AD", "630 BC"], answer: "622 AD" },
+{ question: "Q. Which mosque was the first built by the Prophet Muhammad (PBUH) in Madinah?", choices: ["Masjid al-Haram", "Masjid al-Nabawi", "Masjid Quba", "Masjid al-Aqsa"], answer: "Masjid Quba" },
+{ question: "Q. What was a significant outcome of the Hijrat-e-Madina?", choices: ["The establishment of a new trade route", "Formation of the first Islamic state", "Development of new agricultural methods", "Creation of an education system"], answer: "Formation of the first Islamic state" },
+{ question: "Q. Why did the Prophet Muhammad (PBUH) choose Madinah for migration?", choices: ["It was a commercial center", "It had a more accepting population", "It was a religious hub", "It was a military stronghold"], answer: "It had a more accepting population" },
+{ question: "Q. What significant event marks the beginning of the Islamic calendar?", choices: ["Battle of Badr", "Birth of the Prophet", "Hijrat-e-Madina", "First Revelation"], answer: "Hijrat-e-Madina" },
+{ question: "Q. Mesri Tehzeeb is commonly known as the civilization of which ancient culture?", choices: ["Indus Valley", "Mesopotamian", "Egyptian", "Chinese"], answer: "Egyptian" },
+{ question: "Q. What was the primary religion in Mesri Tehzeeb?", choices: ["Monotheism", "Polytheism", "Agnosticism", "Atheism"], answer: "Polytheism" },
+{ question: "Q. Which of the following was a major deity in the Egyptian pantheon?", choices: ["Zeus", "Ra", "Odin", "Brahma"], answer: "Ra" },
+{ question: "Q. What was the significance of the Nile River in Mesri Tehzeeb?", choices: ["Transportation route", "Source of irrigation and agriculture", "Sacred for worship", "All of the above"], answer: "All of the above" },
+{ question: "Q. The ancient Egyptians believed in an afterlife and the process of what?", choices: ["Rebirth", "Transmigration", "Mummification", "Karma"], answer: "Mummification" },
+{ question: "Q. What was the primary purpose of the pyramids in Mesri Tehzeeb?", choices: ["Religious rituals", "Royal tombs", "Trade centers", "Observation towers"], answer: "Royal tombs" },
+{ question: "Q. Which pharaoh is known for the construction of the Great Pyramid of Giza?", choices: ["Tutankhamun", "Ramses II", "Khufu", "Hatshepsut"], answer: "Khufu" },
+{ question: "Q. What was the writing system used in ancient Egypt called?", choices: ["Cuneiform", "Hieroglyphics", "Sanskrit", "Latin"], answer: "Hieroglyphics" },
+{ question: "Q. The belief in the balance of the heart against the feather in the afterlife reflects the concept of what?", choices: ["Justice", "Rebirth", "Fate", "Knowledge"], answer: "Justice" },
+{ question: "Q. What role did the priests play in Mesri Tehzeeb?", choices: ["Merchants", "Governors", "Religious leaders and mediators", "Warriors"], answer: "Religious leaders and mediators" },
+{ question: "Q. What is Seerat primarily concerned with?", choices: ["Historical events", "The life of the Prophet Muhammad (PBUH)", "Religious texts", "Islamic jurisprudence"], answer: "The life of the Prophet Muhammad (PBUH)" },
+{ question: "Q. Why is the study of Seerat important for Muslims?", choices: ["To understand contemporary politics", "To gain insights into ethical behavior and character", "To promote cultural heritage", "To increase memorization skills"], answer: "To gain insights into ethical behavior and character" },
+{ question: "Q. How does Seerat serve as a guide for Muslims?", choices: ["By providing historical context", "By offering practical examples of moral conduct", "By establishing legal codes", "By defining political boundaries"], answer: "By offering practical examples of moral conduct" },
+{ question: "Q. Which aspect of the Prophet's life is highlighted in Seerat studies?", choices: ["His political strategies", "His personal relationships and ethics", "His wealth accumulation", "His military tactics"], answer: "His personal relationships and ethics" },
+{ question: "Q. What role does Seerat play in Islamic education?", choices: ["It is a minor subject", "It is foundational for understanding faith and practice", "It is optional for advanced students", "It focuses solely on historical events"], answer: "It is foundational for understanding faith and practice" },
+{ question: "Q. Seerat helps to strengthen the relationship between Muslims and Allah by emphasizing what?", choices: ["Rituals", "Faith and obedience", "Charity", "Community service"], answer: "Faith and obedience" },
+{ question: "Q. The study of Seerat encourages Muslims to emulate the Prophet Muhammad (PBUH) in which areas?", choices: ["Business practices", "Interpersonal relationships", "Legal matters", "All aspects of life"], answer: "All aspects of life" },
+{ question: "Q. Which key characteristic of the Prophet Muhammad (PBUH) is emphasized in Seerat?", choices: ["Wealth", "Charisma", "Compassion and mercy", "Military prowess"], answer: "Compassion and mercy" },
+{ question: "Q. How does Seerat contribute to the unity of the Muslim community?", choices: ["By promoting different interpretations", "By highlighting shared beliefs and practices", "By emphasizing regional customs", "By focusing on individual achievements"], answer: "By highlighting shared beliefs and practices" },
+{ question: "Q. In what way does Seerat address contemporary issues faced by Muslims?", choices: ["It ignores modern challenges", "It provides timeless principles applicable to modern life", "It focuses only on historical context", "It suggests abandoning traditions"], answer: "It provides timeless principles applicable to modern life" },
+{ question: "Q. How does Seerat promote social justice?", choices: ["By advocating for wealth accumulation", "By emphasizing equality and rights for all individuals", "By focusing on individualism", "By promoting class distinctions"], answer: "By emphasizing equality and rights for all individuals" },
+{ question: "Q. The teachings derived from Seerat are crucial for which aspect of a Muslim's life?", choices: ["Spiritual development", "Economic success", "Political power", "Cultural dominance"], answer: "Spiritual development" }
+
+
+            ],
+        };
+
+        // Display the quiz for the selected subject
+        const quizQuestions = quizData[subject] || [];
+        const quizContainer = document.getElementById('quizContainer');
+
+        quizQuestions.forEach((q, index) => {
+            const questionDiv = document.createElement('div');
+            questionDiv.classList.add('question');
+            questionDiv.innerHTML = `
+                <p>${index + 1}. ${q.question}</p>
+                <div class="choices">
+                    ${q.choices.map(choice => `<label><input type="radio" name="question${index}" value="${choice}"> ${choice}</label>`).join('')}
+                </div>
+            `;
+            quizContainer.appendChild(questionDiv);
+        });
+
+        document.getElementById('submitBtn').addEventListener('click', () => {
+            let score = 0;
+            let incorrectQuestions = [];
+            quizQuestions.forEach((q, index) => {
+                const selectedChoice = document.querySelector(`input[name="question${index}"]:checked`);
+                if (selectedChoice && selectedChoice.value === q.answer) {
+                    score++;
+                } else if (selectedChoice) {
+                    incorrectQuestions.push({
+                        question: q.question,
+                        userAnswer: selectedChoice.value,
+                        correctAnswer: q.answer
+                    });
+                }
+            });
+            const resultElement = document.getElementById('result');
+            resultElement.innerHTML = `<p>You scored ${score} out of ${quizQuestions.length}</p>`;
+
+            if (incorrectQuestions.length > 0) {
+                resultElement.innerHTML += '<h3>Incorrect Answers:</h3>';
+                incorrectQuestions.forEach(q => {
+                    resultElement.innerHTML += `<p><strong>Question:</strong> ${q.question}<br>
+                                                 <strong>Your Answer:</strong> <span class="incorrect">${q.userAnswer}</span><br>
+                                                 <strong>Correct Answer:</strong> <span class="correct">${q.correctAnswer}</span></p>`;
+                });
+            }
+        });
+    </script>
+</body>
+</html>

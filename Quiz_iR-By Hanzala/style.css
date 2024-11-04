@@ -1,0 +1,174 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Arial', sans-serif;
+}
+
+body {
+  background-image: url('https://t4.ftcdn.net/jpg/03/45/88/07/360_F_345880772_zIT2mkdCzTthplO7xqaGGrMspN0jw0ll.jpg');
+  background-size: cover; /* Cover the entire background */
+  background-position: center;
+  background-repeat: no-repeat; /* Prevent repeating the image */
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.container {
+  display: flex;
+  width: 700px;
+  background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent white for better background contrast */
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  animation: fadeInUp 1s ease forwards; /* Animated container */
+  transform: translateY(50px);
+  opacity: 0;
+}
+
+.image-panel {
+  width: 40%;
+  background: linear-gradient(135deg, #ff7e5f, #feb47b); /* Warm gradient for image panel */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  padding: 20px;
+  color: white;
+  text-align: center;
+}
+
+.image-panel img {
+  width: 80%;
+  border-radius: 50%;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  animation: fadeIn 2s ease;
+}
+
+.form-container {
+  width: 60%;
+  padding: 40px;
+}
+
+h1 {
+  color: #ff4081; /* Vibrant color for title */
+  margin-bottom: 20px;
+  font-size: 2.5rem;
+  text-align: center;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7); /* Shadow for depth */
+  font-family: 'Arial', sans-serif;
+}
+
+h2 {
+  margin-bottom: 20px;
+  text-align: center;
+  color: #333;
+}
+
+label {
+  font-size: 14px;
+  color: #333;
+}
+
+input[type="email"], input[type="password"], input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  transition: border 0.3s, background-color 0.3s;
+  background-color: #f9f9f9;
+}
+
+input[type="email"]:focus, input[type="password"]:focus, input[type="text"]:focus {
+  border-color: #ff4081; /* Change border color on focus */
+  background-color: #ffeef8; /* Light pink background on focus */
+}
+
+/* Button Styles */
+button {
+  background: linear-gradient(45deg, #ff4081, #ffea00); /* Bright gradient for buttons */
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  width: 100%;
+  font-weight: bold;
+  box-shadow: 0px 4px 20px rgba(255, 64, 129, 0.6); /* Glow effect */
+  transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+button:hover {
+  background: linear-gradient(45deg, #ffea00, #ff4081); /* Inverted gradient on hover */
+  transform: scale(1.05); /* Slight grow effect */
+  box-shadow: 0px 6px 25px rgba(255, 64, 129, 0.8); /* More intense glow on hover */
+}
+
+.toggle {
+  margin-top: 15px;
+  text-align: center;
+  font-size: 14px;
+  color: #666;
+}
+
+.toggle span {
+  color: #ff4081; /* Consistent accent color */
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.toggle span:hover {
+  color: #d5006d; /* Darker shade on hover */
+}
+
+#welcome-message {
+  text-align: center;
+  font-size: 24px;
+  color: #333;
+  font-weight: bold;
+}
+
+.hidden {
+  display: none;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+      transform: translateY(50px);
+      opacity: 0;
+  }
+  to {
+      transform: translateY(0);
+      opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+      opacity: 0;
+      transform: scale(0.8);
+  }
+  to {
+      opacity: 1;
+      transform: scale(1);
+  }
+}
+
+p {
+  margin-top: 10px;
+}
+
+a {
+  color: #ff4081; /* Consistent accent color for links */
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
